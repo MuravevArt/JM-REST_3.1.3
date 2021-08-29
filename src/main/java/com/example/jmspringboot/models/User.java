@@ -1,8 +1,10 @@
 package com.example.jmspringboot.models;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Collection;
@@ -10,7 +12,11 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+
+@Getter
+@Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
 
@@ -50,10 +56,6 @@ public class User implements UserDetails {
         roles.add(role);
     }
 
-
-    public User() {
-    }
-
     public User(String email, String password, String name, String surname, Byte age, Set<Role> roles) {
         this.email = email;
         this.password = password;
@@ -63,61 +65,9 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public Byte getAge() {
-        return age;
-    }
-
-    public void setAge(Byte age) {
-        this.age = age;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     @Override
@@ -143,10 +93,6 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @Override
