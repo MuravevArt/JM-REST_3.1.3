@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+</head>
+<body>
+<div>
+  <form method="post" action="/login">
+    <label>Enter e-mail</label>
+    <input name="j_username"/>
+    <label>Enter password</label>
+    <input type="password" name="j_password"/>
+    <input type="submit"/>
+  </form>
+  <p>login - artem@mail.ru</p>
+  <p>pass - artem</p>
+  <p>roles - ADMIN</p>
+  <br/>
+  <p>login - anna@mail.ru</p>
+  <p>pass - anna</p>
+  <p>roles - USER</p>
+  <br/>
+  <p>login - test@mail.ru</p>
+  <p>pass - test</p>
+  <p>roles - ADMIN and USER</p>
+</div>
+</body>
+</html>

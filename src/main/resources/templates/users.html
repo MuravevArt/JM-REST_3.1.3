@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Юзеры</title>
+</head>
+<body>
+<h1>All users: </h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>E-MAIL</th>
+        <th>PASSWORD</th>
+        <th>NAME</th>
+        <th>SURNAME</th>
+        <th>AGE</th>
+        <th>ROLES</th>
+        <th colspan="2">ACTIONS</th>
+    </tr>
+    <tr th:each="user : ${usersList}">
+        <td th:text="${user.getId()}">ID</td>
+        <td th:text="${user.getEmail()}">ID</td>
+        <td th:text="${user.getPassword()}">ID</td>
+        <td th:text="${user.getName()}">NAME</td>
+        <td th:text="${user.getSurname()}">SURNAME</td>
+        <td th:text="${user.getAge()}">AGE</td>
+        <td>
+            <span th:each="role : ${user.getAuthorities()}" id="role">
+                <span th:text="${role.getAuthority()}">roles</span>
+            </span>
+        </td>
+
+        <td><a th:href="@{/admin/users/{id}(id=${user.getId()})}">Show Information</a></td>
+        <td><a th:href="@{/admin/users/{id}/edit(id=${user.getId()})}">Edit User</a></td>
+    </tr>
+</table>
+<br/>
+<form th:method="GET" action="/admin/users/new">
+    <input type="submit" value="Create New User">
+</form>
+<br/>
+<form th:method="GET" action="/logout">
+    <input type="submit" value="Logout">
+</form>
+</body>
+</html>

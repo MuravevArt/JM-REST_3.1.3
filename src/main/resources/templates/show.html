@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Show user</title>
+</head>
+<body>
+<h1>User Info: </h1>
+<table th:border="1">
+    <tr>
+        <th>ID</th>
+        <th>E-MAIL</th>
+        <th>PASSWORD</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Roles</th>
+    </tr>
+    <tr>
+        <td th:text="${user.getId()}">Id</td>
+        <td th:text="${user.getEmail()}">Email</td>
+        <td th:text="${user.getPassword()}">Password</td>
+        <td th:text="${user.getName()}">Name</td>
+        <td th:text="${user.getSurname()}">Surname</td>
+        <td th:text="${user.getAge()}">Age</td>
+        <td>
+            <span th:each="role : ${user.getAuthorities()}" id="role">
+                <span th:text="${role.getAuthority()}">roles</span>
+            </span>
+        </td>
+    </tr>
+</table>
+<br/>
+<div sec:authorize="hasAuthority('ADMIN')">
+    <form th:method="DELETE" th:action="@{/admin/users/{id}/delete(id=${user.getId()})}">
+        <input type="submit" value="Delete user">
+    </form>
+    <br/>
+    <form th:method="GET" action="/admin/users">
+    <input type="submit" value="Return to users list">
+</form>
+</div>
+<br/>
+<form th:method="GET" action="/logout">
+    <input type="submit" value="Logout">
+</form>
+</body>
+</html>
