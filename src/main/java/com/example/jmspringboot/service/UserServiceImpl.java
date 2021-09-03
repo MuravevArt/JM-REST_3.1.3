@@ -37,6 +37,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void update(User user) {
+        if (user.getPassword().equals("")) {
+            String oldPassword = userDao.getById(user.getId()).getPassword();
+            user.setPassword(oldPassword);
+        } else {
+            String encryptedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encryptedPassword);
+        }
+        userDao.update(user);
+    }
+
+    @Override
     public void delete(Long id) {
         userDao.delete(id);
     }
