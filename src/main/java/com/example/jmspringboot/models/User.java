@@ -5,12 +5,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 
 @Getter
@@ -29,7 +27,6 @@ public class User implements UserDetails {
     private String email;
 
     @Column(name = "password")
-    @NotBlank(message = "Password should not be empty!")
     private String password;
 
     @Column(name = "name")

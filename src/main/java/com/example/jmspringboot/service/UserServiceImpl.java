@@ -1,5 +1,6 @@
 package com.example.jmspringboot.service;
 
+import com.example.jmspringboot.dao.RoleDao;
 import com.example.jmspringboot.dao.UserDao;
 import com.example.jmspringboot.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
+    private RoleDao roleDao;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -33,17 +37,20 @@ public class UserServiceImpl implements UserService {
     public void save(User user) {
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
+        if (user.getRoles().size() == 0) {
+            user.addRole(roleDao.findById(2L));
+        }
         userDao.save(user);
     }
 
     @Override
     public void update(User user) {
-        if (user.getPassword().equals("")) {
-            String oldPassword = userDao.getById(user.getId()).getPassword();
-            user.setPassword(oldPassword);
-        } else {
-            String encryptedPassword = passwordEncoder.encode(user.getPassword());
-            user.setPassword(encryptedPassword);
+        if (user.getRoles().size() == 0) {
+            user.addRole(roleDao.findById(2L));
+        }
+        User oldUser = getById(user.getId());
+        if (!oldUser.getPassword().equals(user.getPassword())) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
         userDao.update(user);
     }
