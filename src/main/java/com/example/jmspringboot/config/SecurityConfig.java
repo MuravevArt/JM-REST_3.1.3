@@ -16,8 +16,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    private final LoginSuccessHandler handler;
+
     @Autowired
-    private LoginSuccessHandler handler;
+    public SecurityConfig(LoginSuccessHandler handler) {
+        this.handler = handler;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

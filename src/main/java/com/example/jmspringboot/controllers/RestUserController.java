@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -17,11 +16,15 @@ import java.util.List;
 @RequestMapping("/api")
 public class RestUserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final RoleService roleService;
 
     @Autowired
-    private RoleService roleService;
+    public RestUserController(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     @GetMapping("/roles")
     public ResponseEntity<List<Role>> showAllRoles() {
@@ -30,7 +33,7 @@ public class RestUserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> showAllUsers(Model model) {
+    public ResponseEntity<List<User>> showAllUsers() {
         List<User> usersList = userService.getAllUsers();
         return new ResponseEntity<>(usersList, HttpStatus.OK);
     }

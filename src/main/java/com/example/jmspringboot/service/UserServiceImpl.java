@@ -14,14 +14,18 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserDao userDao;
+    private final UserDao userDao;
+
+    private final RoleDao roleDao;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    private RoleDao roleDao;
-
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    public UserServiceImpl(UserDao userDao, RoleDao roleDao, PasswordEncoder passwordEncoder) {
+        this.userDao = userDao;
+        this.roleDao = roleDao;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public List<User> getAllUsers() {

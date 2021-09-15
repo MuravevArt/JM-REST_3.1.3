@@ -12,11 +12,15 @@ import javax.annotation.PostConstruct;
 @Component
 public class DataInitializer {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final RoleService roleService;
 
     @Autowired
-    private RoleService roleService;
+    public DataInitializer(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     @PostConstruct
     private void init() {
